@@ -69,6 +69,12 @@ uv run server.py
   - `page`: ページ番号 (デフォルト: 1)
   - `employee_ids`: 社員番号（カンマ区切りで複数指定可）
 
+- `list_salary_statements`: 従業員に紐づく給与計算結果を取得します。
+  - `executed_on`: 処理月 (yyyy-MM) [必須]
+  - `page`: ページ番号 (デフォルト: 1)
+  - `employee_ids`: 社員番号（カンマ区切りで複数指定可、最大100件）
+  - `has_since_changed_at`: 指定された年月日以降に新規登録または更新されたデータ (yyyy-MM-dd)
+
 ## 開発
 
 依存関係の追加:
