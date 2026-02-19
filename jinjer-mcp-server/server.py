@@ -236,5 +236,34 @@ def list_attendances(
     except Exception as e:
         return f"Error: {str(e)}"
 
+@mcp.tool()
+def list_salary_statements(
+    executed_on: str,
+    page: int = 1,
+    employee_ids: Optional[str] = None,
+    has_since_changed_at: Optional[str] = None
+) -> str:
+    """
+    従業員に紐づく給与計算結果を取得します。
+
+    Args:
+        executed_on: 処理月 (yyyy-MM) [必須]
+        page: ページ番号 (デフォルト: 1)
+        employee_ids: 社員番号（カンマ区切りで複数指定可、最大100件）
+        has_since_changed_at: 指定された年月日以降に新規登録または更新されたデータ (yyyy-MM-dd)
+    """
+    try:
+        jinjer = get_client()
+        params = {"executed-on": executed_on, "page": page}
+        if employee_ids:
+            params["employee-ids"] = employee_ids
+        if has_since_changed_at:
+            params["has-since-changed-at"] = has_since_changed_at
+
+        result = jinjer.request("GET", "/v1/employees/salary-statements", params=params)
+        return str(result)
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 if __name__ == "__main__":
     mcp.run()
