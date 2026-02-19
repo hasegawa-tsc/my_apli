@@ -1,0 +1,117 @@
+従業員 勤怠
+
+従業員に紐づく勤怠情報を取り扱います。
+/v1/employees/labor-hour-settings
+
+従業員に紐づく勤怠情報を取得する。
+Authorizations:
+ApplicationJWT
+query Parameters
+page	
+integer
+Example: page=1
+
+クエリパラメータが無い場合、100件返却します。
+101-200件目を取得したい場合、page=2 を指定してください。
+employee-ids	
+string
+Example: employee-ids=1,2,3...,100
+
+複数の社員番号をカンマ区切りで指定できます。
+100件以上含まれる場合は、100件までを返します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+has-since-changed-at	
+string <date> yyyy-MM-dd
+Example: has-since-changed-at=2023-01-01
+
+指定された年月日以降に新規登録または更新されたデータを返却します。
+年月日が指定されていなかったら全データを返却します。
+year	
+string <date> yyyy
+Example: year=2023
+
+指定した年のデータを返却します。
+年が指定されていない場合、全データを返却します。
+
+
+Responses
+
+200 OK
+ Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+X-Item-Counts	
+integer
+
+このエンドポイントで取り扱うリソースの総数を確認できます。
+Response Schema: application/json
+results	
+string
+	
+Array of objects
+Array
+employee_id	
+string
+
+社員番号
+	
+Array of objects
+target_days_of_annual_leave	
+string
+
+年休取得目標日数
+starting_date_of_paid_leave	
+string <date> yyyy-MM-dd
+
+有休起算日
+created_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+作成日時
+updated_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+更新日時
+
+404 Not Found
+ Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+Response Schema: application/json
+results	
+string
+	
+Array of objects
+Array
+code	
+string
+
+Error's code
+reason	
+string
+
+Error's reason
+message	
+string
+
+Error's message
+
+

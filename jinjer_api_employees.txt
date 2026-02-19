@@ -1,0 +1,142 @@
+---
+従業員
+
+従業員情報を取り扱います。
+/v1/employees
+
+従業員情報を取得する。
+Authorizations:
+ApplicationJWT
+query Parameters
+page	
+integer
+Example: page=1
+
+クエリパラメータが無い場合、100件返却します。
+101-200件目を取得したい場合、page=2 を指定してください。
+employee-ids	
+string
+Example: employee-ids=1,2,3...,100
+
+複数の社員番号をカンマ区切りで指定できます。
+100件以上含まれる場合は、100件までを返します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+has-since-changed-at	
+string <date> yyyy-MM-dd
+Example: has-since-changed-at=2023-01-01
+
+指定された年月日以降に新規登録または更新されたデータを返却します。
+年月日が指定されていなかったら全データを返却します。
+employee-last-name	
+string
+Example: employee-last-name=神社
+
+職場氏名（氏）を指定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+employee-first-name	
+string
+Example: employee-first-name=太郎
+
+職場氏名（名）を指定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+joined-on-period-start-date	
+string <date> yyyy-MM-dd
+Example: joined-on-period-start-date=2023-01-01
+
+入社年月日の期間指定の開始日を設定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+joined-on-period-end-date	
+string <date> yyyy-MM-dd
+Example: joined-on-period-end-date=2023-06-01
+
+入社年月日の期間指定の終了日を設定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+retirement-period-start-date	
+string <date> yyyy-MM-dd
+Example: retirement-period-start-date=2023-01-01
+
+退職年月日の期間指定の開始日を設定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+retirement-period-end-date	
+string <date> yyyy-MM-dd
+Example: retirement-period-end-date=2023-06-01
+
+退職年月日の期間指定の開始日を設定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+enrollment-classification-id	
+string
+Example: enrollment-classification-id=1
+
+在籍区分
+下記のいずれかを指定できます。
+0:在籍
+1:退職
+2:休職
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+employment-classification-id	
+string
+Example: employment-classification-id=1
+
+雇用区分
+雇用区分は /v1/master/employment-classifications で得られる id の値（雇用区分ID）で指定します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+
+Responses
+200
+
+Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+X-Item-Counts	
+integer
+
+このエンドポイントで取り扱うリソースの総数を確認できます。
+Response Schema: application/json
+results	
+string
+
+
+
+Array of objects
+
+
+{
+
+    "results": "success",
+    "data": [
+        {}
+    ]
+
+}
+
+Responses
+400 NotFound
+
+ Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+Response Schema: application/json
+results	
+string
+	
+Array of objects
+
+---

@@ -1,0 +1,242 @@
+従業員 打刻データ
+
+従業員に紐づく打刻データ情報を取り扱います。
+/v2/employees/attendances
+
+従業員に紐づく打刻データを取得する。
+Authorizations:
+ApplicationJWT
+query Parameters
+month
+required
+	
+string <date> yyyy-MM
+Example: month=2023-04
+
+取得する打刻データの年月を指定します。
+年月が指定されていない場合、エラーを返却します。
+page	
+integer
+Example: page=1
+
+クエリパラメータが無い場合、20件返却します。
+21-40件目を取得したい場合、page=2 を指定してください。
+employee-ids	
+string
+Example: employee-ids=1,2,3...,100
+
+複数の社員番号をカンマ区切りで指定できます。
+20件以上含まれる場合は、20件までを返します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+
+
+Responses
+
+200 OK
+
+ Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+X-Item-Counts	
+integer
+
+このエンドポイントで取り扱うリソースの総数を確認できます。
+Response Schema: application/json
+results	
+string
+	
+Array of objects
+Array
+employee_id	
+string
+
+社員番号
+	
+Array of objects
+Array
+date	
+string <date> yyyy-MM-dd
+
+打刻日付
+	
+object
+id	
+string
+
+打刻グループID
+name	
+string
+
+打刻グループ名
+attended_at	
+string <date> yyyy-MM-dd hh:mm:ss
+
+出勤時刻
+left_at	
+string <date> yyyy-MM-dd hh:mm:ss
+
+退勤時刻
+is_absent	
+boolean
+
+欠勤
+欠勤の場合 true を返します。
+confirmation_status	
+string
+
+残業管理確認状況
+0:未対応または対象外
+1:承認
+2:否認
+automatic_stamp_status	
+string
+
+自動打刻申請状況
+0:未対応または対象外
+1:承認
+2:否認
+3:その他
+	
+Array of objects
+Array
+	
+object
+id	
+string
+
+打刻タイプID
+1:出勤
+2:直行
+3:退勤
+4:直帰
+5:休憩開始
+6:休憩終了
+7:外出開始
+8:外出終了
+9:欠勤
+name	
+string
+
+打刻タイプ
+stamped_at	
+string <date> yyyy-MM-dd hh:mm:ss
+
+打刻時刻
+	
+object
+id	
+string
+
+休憩種別ID
+0:通常休憩または休憩以外
+1:食事1
+2:食事2
+3:通常休憩終了
+4:食事1終了
+5:食事2終了
+name	
+string
+
+休憩種別
+	
+object
+classification	
+string
+
+食費種別
+-1:対象外
+0:控除
+1:支給
+fee	
+string
+
+食費単価
+latitude	
+number
+
+打刻緯度
+longitude	
+number
+
+打刻経度
+smile_point	
+number
+
+笑顔判定点数
+comment	
+string
+
+打刻時コメント
+stamp_method	
+string
+
+打刻方法
+created_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+作成日時
+updated_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+更新日時
+	
+Array of objects
+Array
+id	
+string
+
+打刻区分ID
+name	
+string
+
+打刻区分
+created_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+作成日時
+updated_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+更新日時
+
+404 Not Found
+
+ Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+Response Schema: application/json
+results	
+string
+	
+Array of objects
+Array
+code	
+string
+
+Error's code
+reason	
+string
+
+Error's reason
+message	
+string
+
+Error's message
