@@ -75,6 +75,11 @@ uv run server.py
   - `employee_ids`: 社員番号（カンマ区切りで複数指定可、最大100件）
   - `has_since_changed_at`: 指定された年月日以降に新規登録または更新されたデータ (yyyy-MM-dd)
 
+- `list_requested_day_offs`: 従業員に紐づく休日休暇データを取得します。
+  - `month`: 取得する休日休暇データの年月 (yyyy-MM) [必須]
+  - `page`: ページ番号 (デフォルト: 1)
+  - `employee_ids`: 社員番号（カンマ区切りで複数指定可、最大100件）
+
 ## 開発
 
 依存関係の追加:
