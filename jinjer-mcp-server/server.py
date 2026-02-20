@@ -265,5 +265,30 @@ def list_salary_statements(
     except Exception as e:
         return f"Error: {str(e)}"
 
+@mcp.tool()
+def list_requested_day_offs(
+    month: str,
+    page: int = 1,
+    employee_ids: Optional[str] = None
+) -> str:
+    """
+    従業員に紐づく休日休暇データを取得します。
+
+    Args:
+        month: 取得する休日休暇データの年月 (yyyy-MM) [必須]
+        page: ページ番号 (デフォルト: 1)
+        employee_ids: 社員番号（カンマ区切りで複数指定可、最大100件）
+    """
+    try:
+        jinjer = get_client()
+        params = {"month": month, "page": page}
+        if employee_ids:
+            params["employee-ids"] = employee_ids
+
+        result = jinjer.request("GET", "/v2/employees/requested-day-offs", params=params)
+        return str(result)
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 if __name__ == "__main__":
     mcp.run()

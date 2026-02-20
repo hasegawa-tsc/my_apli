@@ -1,0 +1,125 @@
+従業員 休日休暇データ
+
+従業員に紐づく休日休暇データ情報を取り扱います。
+/v2/employees/requested-day-offs
+
+従業員に紐づく休日休暇データを取得する。
+Authorizations:
+ApplicationJWT
+HTTP: ApplicationJWT
+HTTP Authorization Scheme: bearer
+Bearer format: JWT
+query Parameters
+month
+required
+	
+string <date> yyyy-MM
+Example: month=2023-04
+
+取得する休日休暇データの年月を指定します。
+年月は月度（締めの単位）ではなく暦月で指定します。
+年月が指定されていない場合、エラーを返却します。
+page	
+integer
+Example: page=1
+
+クエリパラメータが無い場合、20件返却します。
+21-40件目を取得したい場合、page=2 を指定してください。
+employee-ids	
+string
+Example: employee-ids=1,2,3...,100
+
+複数の社員番号をカンマ区切りで指定できます。
+20件以上含まれる場合は、20件までを返します。
+クエリパラメータが無い場合、条件に含めずデータを返却します。
+
+Responses
+200 OK
+Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+X-Item-Counts	
+integer
+
+このエンドポイントで取り扱うリソースの総数を確認できます。
+Response Schema: application/json
+results	
+string
+Array of objects
+Array
+employee_id	
+string
+
+社員番号
+Array of objects
+Array
+object
+date	
+string <date> yyyy-MM-dd
+
+対象日付
+status	
+string
+
+休日休暇申請ステータス
+0:未対応
+1:承認
+2:否認
+object
+object
+reason	
+string
+
+休日休暇理由
+applied_at	
+string <date> yyyy-MM-dd
+
+適用日
+created_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+作成日時
+updated_at	
+string <datetime> yyyy-MM-dd hh:mm:ss
+
+更新日時
+
+404 Not Found
+Response Headers Content-Type	
+string
+Value: "application/json"
+X-Content-Type-Options	
+string
+Value: "nosniff"
+X-Frame-Options	
+string
+Value: "deny"
+X-XSS-Protection	
+string
+Value: "1; mode=block"
+Response Schema: application/json
+results	
+string
+Array of objects
+Array
+code	
+string
+
+Error's code
+reason	
+string
+
+Error's reason
+message	
+string
+
+Error's message
